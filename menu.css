@@ -1,0 +1,165 @@
+:root {
+    --espresso: #241610;
+    --roast: #3a2419;
+    --carrot: #f0782c;
+    --carrot-dark: #d9631e;
+    --leaf: #7fb04a;
+    --foam: #f7f1e8;
+    --muted: #cdbfb0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: "Trebuchet MS", "Segoe UI", system-ui, sans-serif;
+    background: var(--espresso);
+    color: var(--foam);
+    line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; }
+
+/* NAV */
+.navbar {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 6%;
+    background: rgba(36, 22, 16, 0.95);
+    border-bottom: 1px solid rgba(247, 241, 232, 0.1);
+}
+.logo { font-size: 1.4rem; font-weight: 800; letter-spacing: -0.01em; }
+.logo span { color: var(--carrot); }
+
+.nav-menu { display: flex; gap: 6px; align-items: center; }
+.nav-link {
+    display: block; padding: 8px 16px; border-radius: 999px;
+    color: var(--muted); transition: background .2s, color .2s;
+}
+.nav-link:hover { background: rgba(247, 241, 232, 0.1); color: var(--foam); }
+.nav-link.active { background: var(--carrot); color: var(--espresso); font-weight: 700; }
+.nav-order {
+    display: block;
+    margin-left: 8px; padding: 9px 20px; border-radius: 999px;
+    background: var(--leaf); color: var(--espresso); font-weight: 700;
+}
+
+/* Mobile toggle (no JavaScript) */
+#nav-toggle { display: none; }
+.burger { display: none; cursor: pointer; font-size: 1.7rem; line-height: 1; }
+
+/* PAGE HERO (used on Menu, Gallery, etc.) */
+.page-hero {
+    text-align: center;
+    padding: 60px 6% 10px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+.page-hero h1 {
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    letter-spacing: -0.02em;
+}
+.page-hero p {
+    margin-top: 14px;
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+/* HOME */
+.home {
+    max-width: 1100px; margin: 0 auto;
+    padding: 90px 6% 70px;
+}
+.home h1 {
+    font-size: clamp(2.4rem, 7vw, 4.6rem);
+    line-height: 1.05; letter-spacing: -0.03em; max-width: 14ch;
+}
+.home p { margin-top: 20px; max-width: 50ch; color: var(--muted); font-size: 1.1rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 32px; }
+.btn {
+    padding: 13px 30px; border-radius: 10px; font-weight: 700;
+    border: 2px solid var(--carrot); cursor: pointer; font-size: 1rem;
+}
+.btn-primary { background: var(--carrot); color: var(--espresso); }
+.btn-outline { background: transparent; color: var(--foam); border-color: rgba(247,241,232,.35); }
+
+/* PRODUCT CARDS + IMAGES */
+.products {
+    display: grid; gap: 20px; margin-top: 60px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* When .products is used as its own page section (not nested in .home),
+   e.g. on the Menu page, it needs its own width and spacing. */
+main > .products {
+    max-width: 1100px;
+    margin: 40px auto 0;
+    padding: 0 6% 80px;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    background: var(--roast);
+    border-radius: 14px;
+    overflow: hidden;
+    border-left: 4px solid var(--carrot);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.product:nth-child(even) { border-left-color: var(--leaf); }
+
+.product:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.35);
+}
+
+/* Image sits at the top of the card, full-bleed and consistently cropped */
+.product img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    background: var(--espresso); /* shows while loading, or if the file is missing */
+    order: -1; /* renders image above the heading regardless of source order */
+}
+
+.product h3 {
+    font-size: 1.1rem;
+    padding: 18px 20px 0;
+}
+
+.product p {
+    padding: 6px 20px 20px;
+    font-size: .92rem;
+    color: var(--muted);
+    flex: 1;
+}
+
+/* Keep cards the same height in a row even when one description runs long */
+.products .product {
+    height: 100%;
+}
+
+/* Card with no image (Carrot juice) still lines up: padding fills the image's place */
+.product:not(:has(img)) h3 {
+    padding-top: 20px;
+}
+
+footer { text-align: center; padding: 24px; font-size: .9rem; color: var(--muted); background: #170e0a; }
+
+:focus-visible { outline: 3px solid var(--carrot); outline-offset: 3px; }
+
+@media (max-width: 760px) {
+    .burger { display: block; }
+    .nav-menu {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; align-items: stretch; padding: 12px 6% 20px;
+        background: var(--espresso); border-bottom: 1px solid rgba(247,241,232,.1);
+    }
+    #nav-toggle:checked ~ .nav-menu { display: flex; }
+    .nav-order { margin: 6px 0 0; text-align: center; }
+    .home { padding-top: 60px; }
+}
